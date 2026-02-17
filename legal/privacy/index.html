@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>개인정보 처리방침 | CoinNoded</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background: #0b0b0f;
+      color: #eaeaf2;
+      line-height: 1.65;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 28px 18px 80px; }
+    h1 { font-size: 22px; margin: 0 0 10px; }
+    h2 { font-size: 16px; margin: 22px 0 10px; }
+    .meta { color: #b6b6c7; font-size: 13px; margin-bottom: 16px; }
+    .card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 18px; }
+    .chip {
+      display: inline-flex; align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.10);
+      font-size: 12px;
+      color: #d8d8e6;
+      white-space: nowrap;
+    }
+    .lead { color: #dcdcf0; margin: 12px 0 18px; }
+    hr { border: 0; border-top: 1px solid rgba(255,255,255,.10); margin: 18px 0; }
+    .toc { color: #c8c8da; font-size: 13px; margin: 10px 0 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid rgba(255,255,255,.10); padding: 10px; vertical-align: top; }
+    th { background: rgba(255,255,255,.06); text-align: left; width: 28%; color: #d8d8e6; }
+    td { color: #eaeaf2; }
+    a { color: #a9b7ff; }
+    .small { color: #b6b6c7; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>개인정보 처리방침</h1>
+    <div class="meta">서비스명: CoinNoded · 제공자: 개인 개발자<br/>최종 업데이트: 2026-01-28</div>
+
+    <div class="card">
+      <div class="chips" aria-label="핵심 특징">
+        <span class="chip">최소 수집</span>
+        <span class="chip">키/니모닉 서버 미저장</span>
+        <span class="chip">제3자 인프라</span>
+        <span class="chip">업데이트 고지</span>
+      </div>
+
+      <p class="lead"><strong>요약</strong> — 당사는 원칙적으로 개인키/복구구문(니모닉)·지갑 비밀번호를 서버에 저장하지 않습니다. 다만 온체인 조회/전송을 위해 RPC 제공자, 블록 탐색기, 가격 데이터 등 제3자 서비스를 사용할 수 있으며, 이 과정에서 지갑 주소/요청 메타데이터/IP 등이 제3자에게 전달될 수 있습니다.</p>
+
+      <p class="toc"><strong>목차</strong> · 1. 처리방침 개요 · 2. 수집 항목 · 3. 이용 목적 · 4. 제3자 제공 · 5. 보관/파기 · 6. 이용자 권리 · 7. 보안 · 8. 변경</p>
+
+      <hr/>
+
+      <h2>1. 처리방침 개요</h2>
+      <p>본 방침은 서비스 제공 과정에서 당사가 처리하는 정보의 범위와 방식, 그리고 이용자의 권리를 안내합니다.</p>
+      <p>※ 본 방침은 현재 서비스 구성 기준으로 작성되었습니다.</p>
+
+      <h2>2. 수집하는 정보 항목</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>서버에 저장하지 않는 민감정보</th>
+            <td>
+              개인키, 복구구문(니모닉), 지갑 비밀번호 등은 원칙적으로 서버에 저장하지 않습니다.<br/>
+              (이 정보는 사용자의 기기 내 저장소(예: Keychain 등)에 보관될 수 있습니다.)
+            </td>
+          </tr>
+          <tr>
+            <th>앱 기능 제공 과정의 네트워크 정보</th>
+            <td>
+              온체인 조회/전송을 위해 제3자 RPC/탐색기/가격 API로 요청이 전송될 수 있으며,<br/>
+              이 과정에서 지갑 주소, 요청 메타데이터(체인, 토큰 컨트랙트 등), IP 주소가 제3자에게 전달될 수 있습니다.
+            </td>
+          </tr>
+          <tr>
+            <th>고객지원(선택)</th>
+            <td>
+              이용자가 문의 시 이메일/문의 내용 등 최소한의 정보를 제공할 수 있습니다(선택).<br/>
+              제공 범위는 이용자가 입력한 내용에 한정됩니다.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="small" style="margin-top:10px;">
+        ※ 당사가 분석 SDK/광고 SDK 등을 사용하지 않는다면, 해당 항목은 “미사용”으로 명시하는 것을 권장합니다.
+      </p>
+
+      <h2>3. 정보 이용 목적</h2>
+      <ul>
+        <li>지갑 기능 제공(잔액 조회, 트랜잭션 전파, 거래 내역 조회 등)</li>
+        <li>오류 대응 및 고객지원(이용자 요청 시)</li>
+        <li>서비스 안정성 개선(필요 시, 최소 범위의 기술적 로그)</li>
+      </ul>
+      <p>※ 투자/법률/세무 자문 제공 목적의 데이터 처리는 하지 않습니다.</p>
+
+      <h2>4. 제3자 제공 및 처리위탁</h2>
+      <p>서비스는 다음과 같은 제3자 인프라를 사용할 수 있습니다(예시).</p>
+      <ul>
+        <li>RPC 제공자: 온체인 조회/전송을 위한 노드 인프라</li>
+        <li>블록 탐색기: 거래/컨트랙트 정보 조회</li>
+        <li>가격 데이터: 토큰 가격 표시</li>
+        <li>CDN/호스팅: 약관/정책 페이지 제공</li>
+      </ul>
+      <p>당사는 제3자 서비스의 정책/가용성/보안에 대해 통제할 수 없으며, 제3자 측에서 수집·처리되는 정보에 대해서는 해당 제3자의 정책이 적용될 수 있습니다.</p>
+
+      <h2>5. 보관 및 파기</h2>
+      <ul>
+        <li>당사가 서버에 개인정보를 보관하지 않는 구조를 지향합니다(서비스 구성에 따라 달라질 수 있음).</li>
+        <li>고객지원 등으로 수집된 정보가 있는 경우, 목적 달성 후 지체 없이 파기합니다.</li>
+        <li>법령에 따라 보관이 필요한 경우, 해당 법령에서 정한 기간 동안 보관 후 파기합니다.</li>
+      </ul>
+
+      <h2>6. 이용자의 권리</h2>
+      <p>이용자는 관련 법령이 허용하는 범위에서 본인 정보에 대한 열람/정정/삭제를 요청할 수 있습니다. 다만 비수탁 지갑 특성상, 온체인에 기록된 트랜잭션 데이터는 블록체인 네트워크 상에서 삭제가 불가능할 수 있습니다.</p>
+
+      <p><strong>문의:</strong> <a href="mailto:dnjstlr1711@gmail.com">dnjstlr1711@gmail.com</a></p>
+
+      <h2>7. 보안</h2>
+      <ul>
+        <li>민감정보는 가능한 한 기기 내 안전한 저장소에 보관되도록 설계합니다.</li>
+        <li>이용자는 기기 잠금, OS 업데이트, 피싱 방지 등 보안 수칙을 준수해야 합니다.</li>
+        <li>당사는 시스템 개선을 지속하나, 인터넷/네트워크 특성상 완전한 보안을 보장할 수는 없습니다.</li>
+      </ul>
+
+      <h2>8. 처리방침 변경</h2>
+      <p>본 방침은 서비스/법령 변경에 따라 업데이트될 수 있으며, 변경 시 본 페이지의 최종 업데이트 일자를 갱신합니다.</p>
+    </div>
+
+    <p class="small" style="margin-top:14px;">© CoinNoded</p>
+  </div>
+</body>
+</html>
