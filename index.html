@@ -14,8 +14,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://coinnoded.com/" />
 
-  <!-- (선택) 파비콘: 나중에 /favicon.png 올리면 자동 -->
-  <link rel="icon" href="/favicon.png" />
+  <!-- ✅ Favicon (루트에 icon.png 업로드한 상태 기준) -->
+  <link rel="icon" href="/icon.png" />
 
   <style>
     :root{
@@ -127,10 +127,11 @@
       letter-spacing:.2px;
     }
 
+    /* ✅ 기존 그라데이션 박스(.logo) → 업로드한 icon.png로 교체 */
     .logo{
       width:28px; height:28px;
       border-radius:10px;
-      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      background: url("/icon.png") center/cover no-repeat;
       box-shadow: 0 10px 40px rgba(124,58,237,.28);
       position:relative;
       overflow:hidden;
@@ -418,9 +419,9 @@
           <div class="panel" id="policies">
             <h3>Policies</h3>
             <p>
-              • <a href="/privacy.html">Privacy Policy</a><br/>
-              • <a href="/terms.html">Terms of Service</a><br/>
-              (If these files do not exist yet, add them later.)
+              <!-- ✅ GitHub Pages 폴더 index 기준으로 /legal/.../ 로 연결 -->
+              • <a href="/legal/privacy/">Privacy Policy</a><br/>
+              • <a href="/legal/terms/">Terms of Service</a><br/>
             </p>
           </div>
         </aside>
@@ -430,8 +431,9 @@
         <div>© <span id="y"></span> CoinNoded. All rights reserved.</div>
         <div>
           <a href="mailto:contact@coinnoded.com">Contact</a> ·
-          <a href="/privacy.html">Privacy</a> ·
-          <a href="/terms.html">Terms</a>
+          <!-- ✅ GitHub Pages 폴더 index 기준으로 /legal/.../ 로 연결 -->
+          <a href="/legal/privacy/">Privacy</a> ·
+          <a href="/legal/terms/">Terms</a>
         </div>
       </footer>
     </main>
