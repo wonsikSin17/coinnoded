@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#070A12" />
+  <meta name="theme-color" content="#070B14" />
 
   <title>CoinNoded — Web3 Wallet & Crypto Infrastructure</title>
   <meta name="description" content="CoinNoded builds secure, user-friendly Web3 wallet experiences and crypto infrastructure. App & organization verification site." />
@@ -14,21 +14,36 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://coinnoded.com/" />
 
-  <!-- ✅ Favicon (루트에 icon.png 업로드한 상태 기준) -->
+  <!-- ✅ favicon / brand icon -->
   <link rel="icon" href="/icon.png" />
 
   <style>
     :root{
-      --bg:#050712;
-      --card:#0b1022cc;
-      --stroke:#ffffff14;
-      --text:#eaf0ff;
-      --muted:#9aa7c7;
-      --accent1:#7c3aed; /* violet */
-      --accent2:#22d3ee; /* cyan */
-      --accent3:#f472b6; /* pink */
-      --shadow: 0 18px 80px rgba(0,0,0,.55);
-      --radius: 22px;
+      /* ✅ App-like: deep navy + glass */
+      --bg0:#05060B;
+      --bg1:#060A14;
+      --bg2:#0A1426;
+
+      --glass: rgba(16, 22, 35, .55);
+      --glass2: rgba(10, 14, 24, .38);
+
+      --stroke: rgba(255,255,255,.10);
+      --stroke2: rgba(255,255,255,.06);
+
+      --text: rgba(242,246,255,.96);
+      --sub: rgba(226,232,255,.70);
+      --muted: rgba(190,202,232,.54);
+
+      /* ✅ App accent: blue/cyan + a hint of purple */
+      --a1:#63B6FF;   /* sky blue */
+      --a2:#4F7BFF;   /* electric blue */
+      --a3:#8B5CF6;   /* violet */
+      --a4:#2DD4BF;   /* teal */
+
+      --shadow: 0 22px 90px rgba(0,0,0,.62);
+      --shadow2: 0 10px 40px rgba(0,0,0,.45);
+      --radius: 26px;
+      --radius2: 20px;
     }
 
     *{ box-sizing:border-box; }
@@ -37,10 +52,11 @@
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
       color:var(--text);
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(124,58,237,.28), transparent 60%),
-                  radial-gradient(1000px 700px at 90% 20%, rgba(34,211,238,.18), transparent 55%),
-                  radial-gradient(900px 600px at 60% 90%, rgba(244,114,182,.14), transparent 55%),
-                  linear-gradient(180deg, #03040b 0%, #050712 40%, #050712 100%);
+      background:
+        radial-gradient(1100px 700px at 18% 12%, rgba(99,182,255,.22), transparent 62%),
+        radial-gradient(900px 700px at 92% 18%, rgba(79,123,255,.18), transparent 62%),
+        radial-gradient(900px 680px at 60% 92%, rgba(139,92,246,.14), transparent 60%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 40%, var(--bg0) 100%);
       overflow-x:hidden;
     }
 
@@ -49,7 +65,7 @@
       pointer-events:none;
       position:fixed; inset:0;
       opacity:.08;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='210'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='210' height='210' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='210'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='210' height='210' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
     }
 
@@ -58,270 +74,303 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:64px 20px;
+      padding:64px 18px;
       position:relative;
     }
 
-    /* floating blobs */
+    /* soft fog blobs (like app background) */
     .blob{
       position:absolute;
-      width:520px; height:520px;
+      width:560px; height:560px;
       border-radius:50%;
-      filter: blur(40px);
-      opacity:.35;
-      animation: drift 10s ease-in-out infinite alternate;
+      filter: blur(52px);
+      opacity:.30;
+      animation: drift 12s ease-in-out infinite alternate;
     }
-    .blob.a{
-      left:-140px; top:-140px;
-      background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.9), transparent 60%);
-      animation-duration: 11s;
-    }
-    .blob.b{
-      right:-180px; top:40px;
-      background: radial-gradient(circle at 40% 40%, rgba(34,211,238,.75), transparent 62%);
-      animation-duration: 13s;
-    }
-    .blob.c{
-      right:20%; bottom:-220px;
-      background: radial-gradient(circle at 40% 40%, rgba(244,114,182,.65), transparent 62%);
-      animation-duration: 15s;
-    }
+    .blob.a{ left:-170px; top:-170px; background: radial-gradient(circle at 35% 35%, rgba(99,182,255,.95), transparent 62%); }
+    .blob.b{ right:-210px; top:60px;   background: radial-gradient(circle at 42% 42%, rgba(79,123,255,.85), transparent 62%); animation-duration: 14s; }
+    .blob.c{ right:18%; bottom:-260px; background: radial-gradient(circle at 40% 40%, rgba(139,92,246,.75), transparent 62%); animation-duration: 16s; }
+
     @keyframes drift{
       from{ transform: translate3d(0,0,0) scale(1); }
-      to{ transform: translate3d(22px, -18px, 0) scale(1.06); }
+      to{ transform: translate3d(28px, -18px, 0) scale(1.06); }
     }
 
-    .card{
+    .shell{
       width:min(980px, 100%);
+      position:relative;
+    }
+
+    /* ✅ "device-like" glass surface */
+    .card{
       border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--stroke);
+      border:1px solid var(--stroke2);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       overflow:hidden;
       position:relative;
     }
 
+    /* inner tint layer */
     .card::before{
       content:"";
       position:absolute; inset:-1px;
-      background: radial-gradient(800px 240px at 35% 0%, rgba(124,58,237,.26), transparent 60%),
-                  radial-gradient(800px 240px at 80% 0%, rgba(34,211,238,.20), transparent 60%);
-      opacity:1;
+      background:
+        radial-gradient(900px 320px at 18% 0%, rgba(99,182,255,.18), transparent 60%),
+        radial-gradient(900px 320px at 78% 0%, rgba(79,123,255,.14), transparent 62%),
+        radial-gradient(900px 420px at 48% 120%, rgba(139,92,246,.10), transparent 62%);
       pointer-events:none;
+      opacity:1;
     }
 
+    /* top bar like your app header row */
     .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
       padding:18px 20px;
-      border-bottom: 1px solid var(--stroke);
+      border-bottom: 1px solid var(--stroke2);
       position:relative;
     }
 
     .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:800;
+      display:flex; align-items:center; gap:12px;
+      font-weight:900;
       letter-spacing:.2px;
     }
 
-    /* ✅ 기존 그라데이션 박스(.logo) → 업로드한 icon.png로 교체 */
     .logo{
-      width:28px; height:28px;
-      border-radius:10px;
+      width:30px; height:30px;
+      border-radius:11px;
       background: url("/icon.png") center/cover no-repeat;
-      box-shadow: 0 10px 40px rgba(124,58,237,.28);
+      box-shadow: 0 14px 46px rgba(79,123,255,.22);
       position:relative;
       overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
     }
     .logo::after{
       content:"";
       position:absolute; inset:-40%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
       transform: rotate(25deg);
-      animation: sheen 3.4s ease-in-out infinite;
+      animation: sheen 3.8s ease-in-out infinite;
       opacity:.65;
     }
     @keyframes sheen{
-      0%{ transform: translateX(-40%) rotate(25deg); }
-      55%{ transform: translateX(140%) rotate(25deg); }
-      100%{ transform: translateX(140%) rotate(25deg); }
+      0%{ transform: translateX(-44%) rotate(25deg); }
+      52%{ transform: translateX(148%) rotate(25deg); }
+      100%{ transform: translateX(148%) rotate(25deg); }
     }
 
-    .pill{
+    .statusPill{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:8px 10px;
+      padding:9px 12px;
       border-radius:999px;
-      border:1px solid var(--stroke);
-      background: rgba(0,0,0,.25);
-      color:var(--muted);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+      color: rgba(226,232,255,.70);
       font-size:12px;
-      font-weight:700;
+      font-weight:800;
     }
     .dot{
       width:8px; height:8px; border-radius:999px;
-      background: #34d399; /* green */
-      box-shadow: 0 0 0 4px rgba(52,211,153,.12);
+      background: #22c55e;
+      box-shadow: 0 0 0 5px rgba(34,197,94,.12);
     }
 
     .content{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      padding:26px 22px 22px;
+      grid-template-columns: 1.12fr .88fr;
+      gap:16px;
+      padding:24px 22px 20px;
       position:relative;
     }
 
-    @media (max-width: 860px){
+    @media (max-width: 880px){
       .content{ grid-template-columns: 1fr; }
     }
 
+    /* ✅ app-like title */
     h1{
       margin:0;
-      font-size: clamp(30px, 4vw, 44px);
-      line-height: 1.06;
-      letter-spacing:-.6px;
+      font-size: clamp(34px, 4.4vw, 54px);
+      line-height: 1.02;
+      letter-spacing:-.9px;
     }
 
-    .sub{
-      margin-top:12px;
-      color: rgba(234,240,255,.78);
+    .subtitle{
+      margin-top:10px;
+      color: rgba(205,216,246,.55);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+
+    .desc{
+      margin-top:14px;
+      color: var(--sub);
       font-size: 15.5px;
-      line-height: 1.6;
-      max-width: 60ch;
+      line-height: 1.65;
+      max-width: 62ch;
     }
 
     .accent{
-      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3));
       -webkit-background-clip: text;
       background-clip:text;
       color: transparent;
+    }
+
+    .hairline{
+      height:1px;
+      width:100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      opacity:.9;
+      margin:16px 0 0;
     }
 
     .actions{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:18px;
+      margin-top:16px;
     }
 
+    /* ✅ app-like pill buttons */
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:10px;
       padding:12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--stroke);
-      font-weight:800;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      font-weight:900;
       font-size: 14px;
       color: var(--text);
       text-decoration:none;
-      background: rgba(255,255,255,.06);
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      transition: transform .16s ease, background .16s ease, border-color .16s ease;
       will-change: transform;
     }
     .btn:hover{
       transform: translateY(-1px);
-      background: rgba(255,255,255,.085);
-      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.075);
+      border-color: rgba(255,255,255,.16);
     }
 
     .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,211,238,.85));
-      box-shadow: 0 16px 55px rgba(124,58,237,.22);
+      border-color: rgba(255,255,255,.10);
+      background:
+        linear-gradient(135deg, rgba(99,182,255,.92), rgba(79,123,255,.82));
+      box-shadow: 0 18px 50px rgba(79,123,255,.22);
     }
-
     .btn.primary:hover{
-      background: linear-gradient(135deg, rgba(124,58,237,1), rgba(34,211,238,.92));
+      background:
+        linear-gradient(135deg, rgba(99,182,255,1), rgba(79,123,255,.90));
     }
 
-    .grid{
+    /* ✅ glass panels like app cards */
+    .right{
       display:grid;
-      grid-template-columns: 1fr;
       gap:12px;
       align-content:start;
     }
 
     .panel{
-      border:1px solid var(--stroke);
-      background: rgba(0,0,0,.24);
-      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.20);
+      border-radius: var(--radius2);
       padding:14px 14px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .panel::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(520px 220px at 12% 0%, rgba(99,182,255,.14), transparent 62%),
+        radial-gradient(520px 220px at 85% 0%, rgba(79,123,255,.10), transparent 62%);
+      opacity:.85;
+      pointer-events:none;
     }
 
     .panel h3{
       margin:0 0 6px 0;
       font-size: 13px;
       letter-spacing:.2px;
-      color: rgba(234,240,255,.85);
+      color: rgba(242,246,255,.86);
+      position:relative;
     }
 
     .panel p{
       margin:0;
-      color: rgba(154,167,199,.92);
+      color: rgba(205,216,246,.62);
       font-size: 13px;
       line-height:1.55;
+      position:relative;
     }
 
+    .panel a{
+      color: rgba(227,238,255,.82);
+      text-decoration:none;
+      border-bottom: 1px dotted rgba(227,238,255,.28);
+    }
+    .panel a:hover{ color: rgba(242,246,255,.95); }
+
+    /* ✅ KPI tiles like your in-app grids */
     .kpis{
       display:grid;
       grid-template-columns: repeat(2, 1fr);
       gap:10px;
-      margin-top:14px;
+      margin-top:16px;
     }
     .kpi{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.04);
-      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      border-radius: 18px;
       padding:12px 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
     }
     .kpi .label{
       font-size: 11px;
-      color: rgba(154,167,199,.95);
-      font-weight:800;
+      color: rgba(205,216,246,.55);
+      font-weight:900;
       letter-spacing:.2px;
     }
     .kpi .value{
-      margin-top:6px;
+      margin-top:7px;
       font-size: 14px;
-      font-weight:900;
+      font-weight:950;
       letter-spacing:-.2px;
+      color: rgba(242,246,255,.92);
     }
 
+    /* footer like app bottom row */
     .footer{
       display:flex;
       justify-content:space-between;
       gap:14px;
       padding: 16px 20px 18px;
-      border-top:1px solid var(--stroke);
-      color: rgba(154,167,199,.85);
+      border-top:1px solid rgba(255,255,255,.06);
+      color: rgba(205,216,246,.52);
       font-size: 12px;
       position:relative;
       flex-wrap:wrap;
     }
 
     .footer a{
-      color: rgba(154,167,199,.92);
+      color: rgba(205,216,246,.62);
       text-decoration:none;
-      border-bottom: 1px dotted rgba(154,167,199,.35);
+      border-bottom: 1px dotted rgba(205,216,246,.26);
     }
-    .footer a:hover{ color: rgba(234,240,255,.92); }
-
-    /* little “spark” line */
-    .spark{
-      height:2px;
-      width: 160px;
-      border-radius:999px;
-      background: linear-gradient(90deg, transparent, rgba(124,58,237,.8), rgba(34,211,238,.75), transparent);
-      opacity:.8;
-      margin-top:16px;
-    }
+    .footer a:hover{ color: rgba(242,246,255,.92); }
 
     /* reduce motion */
     @media (prefers-reduced-motion: reduce){
@@ -333,114 +382,118 @@
 
 <body>
   <div class="noise"></div>
+
   <div class="wrap">
     <div class="blob a"></div>
     <div class="blob b"></div>
     <div class="blob c"></div>
 
-    <main class="card" role="main" aria-label="CoinNoded landing">
-      <div class="topbar">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div>CoinNoded</div>
-        </div>
-        <div class="pill" title="Public website for organization verification">
-          <span class="dot" aria-hidden="true"></span>
-          Live • Verification Site
-        </div>
-      </div>
-
-      <section class="content">
-        <div>
-          <h1>
-            Secure <span class="accent">Web3 Wallet</span> experiences<br/>
-            & crypto infrastructure.
-          </h1>
-
-          <div class="spark"></div>
-
-          <p class="sub">
-            CoinNoded is an independent development brand focused on building reliable,
-            user-friendly blockchain applications—wallet UX, transaction safety, and scalable crypto integrations.
-            <br/><br/>
-            This domain is used for <b>app & organization verification</b> and public reference.
-          </p>
-
-          <div class="actions">
-            <!-- (선택) 앱 소개 페이지/노션/깃헙 등으로 바꿔도 됨 -->
-            <a class="btn primary" href="https://github.com/wonsikSin17/coinnoded" target="_blank" rel="noreferrer">
-              <span>View Repository</span> →
-            </a>
-            <a class="btn" href="mailto:contact@coinnoded.com">
-              contact@coinnoded.com
-            </a>
-            <a class="btn" href="#policies">
-              Policies
-            </a>
+    <div class="shell">
+      <main class="card" role="main" aria-label="CoinNoded landing">
+        <div class="topbar">
+          <div class="brand">
+            <div class="logo" aria-hidden="true"></div>
+            <div>CoinNoded</div>
           </div>
 
-          <div class="kpis">
-            <div class="kpi">
-              <div class="label">FOCUS</div>
-              <div class="value">Wallet UX • Safety • Reliability</div>
-            </div>
-            <div class="kpi">
-              <div class="label">STACK</div>
-              <div class="value">iOS • SwiftUI • Web3</div>
-            </div>
-            <div class="kpi">
-              <div class="label">STATUS</div>
-              <div class="value">In active development</div>
-            </div>
-            <div class="kpi">
-              <div class="label">CONTACT</div>
-              <div class="value">Support & inquiries</div>
-            </div>
+          <div class="statusPill" title="Public website for organization verification">
+            <span class="dot" aria-hidden="true"></span>
+            Live • Verification Site
           </div>
         </div>
 
-        <aside class="grid">
-          <div class="panel">
-            <h3>What is CoinNoded?</h3>
-            <p>
-              A project site representing the CoinNoded development brand and its apps.
-              Used to verify organizational identity and provide public information.
+        <section class="content">
+          <div>
+            <h1>
+              Secure <span class="accent">Web3 Wallet</span><br/>
+              experiences & infrastructure.
+            </h1>
+            <div class="subtitle">Self-custody • On-chain • Verification</div>
+
+            <div class="hairline"></div>
+
+            <p class="desc">
+              CoinNoded is an independent development brand focused on building reliable,
+              user-friendly blockchain applications—wallet UX, transaction safety, and scalable crypto integrations.
+              <br/><br/>
+              This domain is used for <b>app & organization verification</b> and public reference.
             </p>
+
+            <div class="actions">
+              <a class="btn primary" href="https://github.com/wonsikSin17/coinnoded" target="_blank" rel="noreferrer">
+                <span>View Repository</span> →
+              </a>
+
+              <!-- ✅ 표시: support@coinnoded.com / 실제 수신: dnjstlr1711@gmail.com -->
+              <a class="btn" href="mailto:dnjstlr1711@gmail.com">
+                support@coinnoded.com
+              </a>
+
+              <a class="btn" href="#policies">
+                Policies
+              </a>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi">
+                <div class="label">FOCUS</div>
+                <div class="value">Wallet UX • Safety • Reliability</div>
+              </div>
+              <div class="kpi">
+                <div class="label">STACK</div>
+                <div class="value">iOS • SwiftUI • Web3</div>
+              </div>
+              <div class="kpi">
+                <div class="label">STATUS</div>
+                <div class="value">In active development</div>
+              </div>
+              <div class="kpi">
+                <div class="label">CONTACT</div>
+                <div class="value">Support & inquiries</div>
+              </div>
+            </div>
           </div>
 
-          <div class="panel">
-            <h3>Ownership & Operator</h3>
-            <p>
-              Operated by Wonsik Sin.<br/>
-              Business name: CoinNoded / Won Sik
-            </p>
-          </div>
+          <aside class="right">
+            <div class="panel">
+              <h3>What is CoinNoded?</h3>
+              <p>
+                A project site representing the CoinNoded development brand and its apps.
+                Used to verify organizational identity and provide public information.
+              </p>
+            </div>
 
-          <div class="panel" id="policies">
-            <h3>Policies</h3>
-            <p>
-              <!-- ✅ GitHub Pages 폴더 index 기준으로 /legal/.../ 로 연결 -->
-              • <a href="/legal/privacy/">Privacy Policy</a><br/>
-              • <a href="/legal/terms/">Terms of Service</a><br/>
-            </p>
-          </div>
-        </aside>
-      </section>
+            <div class="panel">
+              <h3>Ownership & Operator</h3>
+              <p>
+                Operated by Wonsik Sin.<br/>
+                Business name: CoinNoded / Won Sik
+              </p>
+            </div>
 
-      <footer class="footer">
-        <div>© <span id="y"></span> CoinNoded. All rights reserved.</div>
-        <div>
-          <a href="mailto:contact@coinnoded.com">Contact</a> ·
-          <!-- ✅ GitHub Pages 폴더 index 기준으로 /legal/.../ 로 연결 -->
-          <a href="/legal/privacy/">Privacy</a> ·
-          <a href="/legal/terms/">Terms</a>
-        </div>
-      </footer>
-    </main>
+            <div class="panel" id="policies">
+              <h3>Policies</h3>
+              <p>
+                • <a href="/legal/privacy/">Privacy Policy</a><br/>
+                • <a href="/legal/terms/">Terms of Service</a><br/>
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <footer class="footer">
+          <div>© <span id="y"></span> CoinNoded. All rights reserved.</div>
+          <div>
+            <a href="mailto:dnjstlr1711@gmail.com">Contact</a> ·
+            <a href="/legal/privacy/">Privacy</a> ·
+            <a href="/legal/terms/">Terms</a>
+          </div>
+        </footer>
+      </main>
+    </div>
   </div>
 
   <script>
-    // year
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
