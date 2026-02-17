@@ -1,25 +1,445 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CoinNoded</title>
+  <meta name="theme-color" content="#070A12" />
+
+  <title>CoinNoded — Web3 Wallet & Crypto Infrastructure</title>
+  <meta name="description" content="CoinNoded builds secure, user-friendly Web3 wallet experiences and crypto infrastructure. App & organization verification site." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="CoinNoded" />
+  <meta property="og:description" content="Secure Web3 wallet experiences & crypto infrastructure. App & organization verification site." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://coinnoded.com/" />
+
+  <!-- (선택) 파비콘: 나중에 /favicon.png 올리면 자동 -->
+  <link rel="icon" href="/favicon.png" />
+
   <style>
-    body{margin:0;display:flex;min-height:100vh;align-items:center;justify-content:center;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#0b0f17;color:#fff}
-    .card{max-width:720px;padding:32px 28px;border:1px solid rgba(255,255,255,.12);
-    border-radius:18px;background:rgba(255,255,255,.04);backdrop-filter:blur(10px)}
-    h1{margin:0 0 10px;font-size:34px}
-    p{margin:0;color:rgba(255,255,255,.75);line-height:1.6}
-    .tag{display:inline-block;margin-top:16px;padding:8px 12px;border-radius:999px;
-    border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.82);font-size:13px}
+    :root{
+      --bg:#050712;
+      --card:#0b1022cc;
+      --stroke:#ffffff14;
+      --text:#eaf0ff;
+      --muted:#9aa7c7;
+      --accent1:#7c3aed; /* violet */
+      --accent2:#22d3ee; /* cyan */
+      --accent3:#f472b6; /* pink */
+      --shadow: 0 18px 80px rgba(0,0,0,.55);
+      --radius: 22px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(124,58,237,.28), transparent 60%),
+                  radial-gradient(1000px 700px at 90% 20%, rgba(34,211,238,.18), transparent 55%),
+                  radial-gradient(900px 600px at 60% 90%, rgba(244,114,182,.14), transparent 55%),
+                  linear-gradient(180deg, #03040b 0%, #050712 40%, #050712 100%);
+      overflow-x:hidden;
+    }
+
+    /* subtle noise */
+    .noise{
+      pointer-events:none;
+      position:fixed; inset:0;
+      opacity:.08;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='210' height='210'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='210' height='210' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:64px 20px;
+      position:relative;
+    }
+
+    /* floating blobs */
+    .blob{
+      position:absolute;
+      width:520px; height:520px;
+      border-radius:50%;
+      filter: blur(40px);
+      opacity:.35;
+      animation: drift 10s ease-in-out infinite alternate;
+    }
+    .blob.a{
+      left:-140px; top:-140px;
+      background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.9), transparent 60%);
+      animation-duration: 11s;
+    }
+    .blob.b{
+      right:-180px; top:40px;
+      background: radial-gradient(circle at 40% 40%, rgba(34,211,238,.75), transparent 62%);
+      animation-duration: 13s;
+    }
+    .blob.c{
+      right:20%; bottom:-220px;
+      background: radial-gradient(circle at 40% 40%, rgba(244,114,182,.65), transparent 62%);
+      animation-duration: 15s;
+    }
+    @keyframes drift{
+      from{ transform: translate3d(0,0,0) scale(1); }
+      to{ transform: translate3d(22px, -18px, 0) scale(1.06); }
+    }
+
+    .card{
+      width:min(980px, 100%);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(800px 240px at 35% 0%, rgba(124,58,237,.26), transparent 60%),
+                  radial-gradient(800px 240px at 80% 0%, rgba(34,211,238,.20), transparent 60%);
+      opacity:1;
+      pointer-events:none;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 20px;
+      border-bottom: 1px solid var(--stroke);
+      position:relative;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .logo{
+      width:28px; height:28px;
+      border-radius:10px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      box-shadow: 0 10px 40px rgba(124,58,237,.28);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+      transform: rotate(25deg);
+      animation: sheen 3.4s ease-in-out infinite;
+      opacity:.65;
+    }
+    @keyframes sheen{
+      0%{ transform: translateX(-40%) rotate(25deg); }
+      55%{ transform: translateX(140%) rotate(25deg); }
+      100%{ transform: translateX(140%) rotate(25deg); }
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.25);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background: #34d399; /* green */
+      box-shadow: 0 0 0 4px rgba(52,211,153,.12);
+    }
+
+    .content{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      padding:26px 22px 22px;
+      position:relative;
+    }
+
+    @media (max-width: 860px){
+      .content{ grid-template-columns: 1fr; }
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.06;
+      letter-spacing:-.6px;
+    }
+
+    .sub{
+      margin-top:12px;
+      color: rgba(234,240,255,.78);
+      font-size: 15.5px;
+      line-height: 1.6;
+      max-width: 60ch;
+    }
+
+    .accent{
+      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      font-weight:800;
+      font-size: 14px;
+      color: var(--text);
+      text-decoration:none;
+      background: rgba(255,255,255,.06);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      will-change: transform;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.085);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,211,238,.85));
+      box-shadow: 0 16px 55px rgba(124,58,237,.22);
+    }
+
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(124,58,237,1), rgba(34,211,238,.92));
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      align-content:start;
+    }
+
+    .panel{
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.24);
+      border-radius: 18px;
+      padding:14px 14px;
+    }
+
+    .panel h3{
+      margin:0 0 6px 0;
+      font-size: 13px;
+      letter-spacing:.2px;
+      color: rgba(234,240,255,.85);
+    }
+
+    .panel p{
+      margin:0;
+      color: rgba(154,167,199,.92);
+      font-size: 13px;
+      line-height:1.55;
+    }
+
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+    .kpi{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.04);
+      border-radius: 16px;
+      padding:12px 12px;
+    }
+    .kpi .label{
+      font-size: 11px;
+      color: rgba(154,167,199,.95);
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .kpi .value{
+      margin-top:6px;
+      font-size: 14px;
+      font-weight:900;
+      letter-spacing:-.2px;
+    }
+
+    .footer{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding: 16px 20px 18px;
+      border-top:1px solid var(--stroke);
+      color: rgba(154,167,199,.85);
+      font-size: 12px;
+      position:relative;
+      flex-wrap:wrap;
+    }
+
+    .footer a{
+      color: rgba(154,167,199,.92);
+      text-decoration:none;
+      border-bottom: 1px dotted rgba(154,167,199,.35);
+    }
+    .footer a:hover{ color: rgba(234,240,255,.92); }
+
+    /* little “spark” line */
+    .spark{
+      height:2px;
+      width: 160px;
+      border-radius:999px;
+      background: linear-gradient(90deg, transparent, rgba(124,58,237,.8), rgba(34,211,238,.75), transparent);
+      opacity:.8;
+      margin-top:16px;
+    }
+
+    /* reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .blob, .logo::after { animation: none !important; }
+      .btn{ transition:none; }
+    }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <h1>CoinNoded</h1>
-    <p>Personal project site for app & organization verification.</p>
-    <span class="tag">Coming soon</span>
+  <div class="noise"></div>
+  <div class="wrap">
+    <div class="blob a"></div>
+    <div class="blob b"></div>
+    <div class="blob c"></div>
+
+    <main class="card" role="main" aria-label="CoinNoded landing">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>CoinNoded</div>
+        </div>
+        <div class="pill" title="Public website for organization verification">
+          <span class="dot" aria-hidden="true"></span>
+          Live • Verification Site
+        </div>
+      </div>
+
+      <section class="content">
+        <div>
+          <h1>
+            Secure <span class="accent">Web3 Wallet</span> experiences<br/>
+            & crypto infrastructure.
+          </h1>
+
+          <div class="spark"></div>
+
+          <p class="sub">
+            CoinNoded is an independent development brand focused on building reliable,
+            user-friendly blockchain applications—wallet UX, transaction safety, and scalable crypto integrations.
+            <br/><br/>
+            This domain is used for <b>app & organization verification</b> and public reference.
+          </p>
+
+          <div class="actions">
+            <!-- (선택) 앱 소개 페이지/노션/깃헙 등으로 바꿔도 됨 -->
+            <a class="btn primary" href="https://github.com/wonsikSin17/coinnoded" target="_blank" rel="noreferrer">
+              <span>View Repository</span> →
+            </a>
+            <a class="btn" href="mailto:contact@coinnoded.com">
+              contact@coinnoded.com
+            </a>
+            <a class="btn" href="#policies">
+              Policies
+            </a>
+          </div>
+
+          <div class="kpis">
+            <div class="kpi">
+              <div class="label">FOCUS</div>
+              <div class="value">Wallet UX • Safety • Reliability</div>
+            </div>
+            <div class="kpi">
+              <div class="label">STACK</div>
+              <div class="value">iOS • SwiftUI • Web3</div>
+            </div>
+            <div class="kpi">
+              <div class="label">STATUS</div>
+              <div class="value">In active development</div>
+            </div>
+            <div class="kpi">
+              <div class="label">CONTACT</div>
+              <div class="value">Support & inquiries</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="grid">
+          <div class="panel">
+            <h3>What is CoinNoded?</h3>
+            <p>
+              A project site representing the CoinNoded development brand and its apps.
+              Used to verify organizational identity and provide public information.
+            </p>
+          </div>
+
+          <div class="panel">
+            <h3>Ownership & Operator</h3>
+            <p>
+              Operated by Wonsik Sin.<br/>
+              Business name: CoinNoded / Won Sik
+            </p>
+          </div>
+
+          <div class="panel" id="policies">
+            <h3>Policies</h3>
+            <p>
+              • <a href="/privacy.html">Privacy Policy</a><br/>
+              • <a href="/terms.html">Terms of Service</a><br/>
+              (If these files do not exist yet, add them later.)
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="footer">
+        <div>© <span id="y"></span> CoinNoded. All rights reserved.</div>
+        <div>
+          <a href="mailto:contact@coinnoded.com">Contact</a> ·
+          <a href="/privacy.html">Privacy</a> ·
+          <a href="/terms.html">Terms</a>
+        </div>
+      </footer>
+    </main>
   </div>
+
+  <script>
+    // year
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
