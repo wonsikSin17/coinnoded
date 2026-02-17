@@ -275,6 +275,10 @@
         linear-gradient(135deg, rgba(99,182,255,1), rgba(79,123,255,.90));
     }
 
+    .btn.ghost{
+      background: rgba(0,0,0,.22);
+    }
+
     /* ✅ glass panels like app cards */
     .right{
       display:grid;
@@ -372,6 +376,20 @@
     }
     .footer a:hover{ color: rgba(242,246,255,.92); }
 
+    /* small helper row */
+    .miniNote{
+      margin-top:10px;
+      color: rgba(190,202,232,.46);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .miniNote a{
+      color: rgba(205,216,246,.70);
+      text-decoration:none;
+      border-bottom: 1px dotted rgba(205,216,246,.22);
+    }
+    .miniNote a:hover{ color: rgba(242,246,255,.92); }
+
     /* reduce motion */
     @media (prefers-reduced-motion: reduce){
       .blob, .logo::after { animation: none !important; }
@@ -419,19 +437,27 @@
               This domain is used for <b>app & organization verification</b> and public reference.
             </p>
 
+            <!-- ✅ 핵심 CTA: Contact + Policies (Repository는 검증에 불필요하므로 제거) -->
             <div class="actions">
-              <a class="btn primary" href="https://github.com/wonsikSin17/coinnoded" target="_blank" rel="noreferrer">
-                <span>View Repository</span> →
+              <a class="btn primary" href="mailto:dnjstlr1711@gmail.com" aria-label="Contact CoinNoded via email">
+                Contact
               </a>
 
-              <!-- ✅ (변경) 표시/수신 모두 개인 이메일 -->
-              <a class="btn" href="mailto:dnjstlr1711@gmail.com">
-                dnjstlr1711@gmail.com
+              <a class="btn" href="#policies" aria-label="Jump to policy links">
+                View Policies
               </a>
 
-              <a class="btn" href="#policies">
-                Policies
+              <a class="btn ghost" href="/legal/privacy/" aria-label="Open Privacy Policy">
+                Privacy
               </a>
+
+              <a class="btn ghost" href="/legal/terms/" aria-label="Open Terms of Service">
+                Terms
+              </a>
+            </div>
+
+            <div class="miniNote">
+              For verification inquiries: <a href="mailto:dnjstlr1711@gmail.com">dnjstlr1711@gmail.com</a>
             </div>
 
             <div class="kpis">
@@ -448,8 +474,8 @@
                 <div class="value">In active development</div>
               </div>
               <div class="kpi">
-                <div class="label">CONTACT</div>
-                <div class="value">Support & inquiries</div>
+                <div class="label">PURPOSE</div>
+                <div class="value">App & org verification</div>
               </div>
             </div>
           </div>
@@ -458,8 +484,8 @@
             <div class="panel">
               <h3>What is CoinNoded?</h3>
               <p>
-                A project site representing the CoinNoded development brand and its apps.
-                Used to verify organizational identity and provide public information.
+                A public verification site representing the CoinNoded development brand and its apps.
+                This domain provides basic identity, contact, and policy information.
               </p>
             </div>
 
@@ -477,6 +503,14 @@
               <p>
                 • <a href="/legal/privacy/">Privacy Policy</a><br/>
                 • <a href="/legal/terms/">Terms of Service</a><br/>
+              </p>
+            </div>
+
+            <!-- ✅ (선택) Repository는 하단에 작게만 노출 (검증에 방해 안 되게) -->
+            <div class="panel">
+              <h3>Optional</h3>
+              <p>
+                • <a href="https://github.com/wonsikSin17/coinnoded" target="_blank" rel="noreferrer">GitHub (public)</a><br/>
               </p>
             </div>
           </aside>
